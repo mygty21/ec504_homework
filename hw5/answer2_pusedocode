@@ -1,0 +1,30 @@
+/* the main function*/
+main()
+	ex_o = S_o - D_o        // get the difference 
+	ex_a = S_a - D_a
+	ex_b = S_b - D_b
+	ex_ab = S_ab - D_ab
+	if (ex_ab > 0)   // when type ab is sufficient, we can only consider the type o,a,b
+		return is_satisfied(ex_o,ex_a,ex_b)	
+	else:			// when type ab is not sufficient, we should consider the if type o,a,b are sufficient for the type ab
+		if(is_satisfied(ex_o,ex_a,ex_b))         // first, check if type o,a,b is sufficient or not 
+			if(ex_o + ex_a +ex_b +ex_ab < 0)
+				return false
+			else
+				return true
+		else
+			return false
+/* this function used to judge if Type O is sufficient for type a and type b */
+boolean is_satisfied(ex_o,ex_a,ex_b)
+	if(ex_o < 0)
+			return false
+		else
+			if(ex_ab > 0)
+				if(ex_o + ex_a < 0)
+					return false
+				if(ex_o + ex_b < 0)
+					return false
+				if(ex_a < 0 and ex_b < 0)
+					if(ex_o + ex_a + ex_b < 0)
+						return false
+				return Ture

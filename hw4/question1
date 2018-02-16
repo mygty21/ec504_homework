@@ -1,0 +1,26 @@
+Matrix_Opt[N][k] = Nil  // declare a two demensional array
+OPT(G,k):				// the function used to find the path. Suppose the node in G is arranges from V1 to Vn
+	if(k > n):			
+		return 0		// Apparently,there is no path when k > n.
+	if(k == 0 and Vn != V1):
+		return 0		// this means it cannot reach V1 with k edges.
+	if(k == 0 and Vn == v1):
+		return Vn		// this means a valid path has been found.
+
+// the above are base cases//
+	else:
+		while the path (Vi,Vn) exists: 			//search all the paths ends with Vn. i is range(1,n)
+			if Matrix_Opt[Vi][k-1] != Nil:
+				temp = Matrix_opt[Vi][k-1]		
+			else:
+				G' = G with only V1 to Vi       //cut the graph and keep the node V1 to Vi, since this is a line-graph
+												//there is no path backward. 
+				temp = OPT(G',k-1)				// the problem has become a subproblem with smaller v and k.
+				Matrix_Opt[n][k] =temp   		// record the OPT(Gn,k), since this is the first time of computing this.
+				if temp != 0:					// temp != 0 means that we found a path
+					Vn.π = Vi 					// this record the actual path by recording the last node in the path.
+					return Vn					// return the node we found 
+		
+		end while	
+		return 0								// since we did not find any path from Vi to Vn with edges k, then return 0
+												// which means the path with k edges cannot be found. 
